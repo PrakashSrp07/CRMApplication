@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface CustomerService {
     Customer acceptCustomer(Customer customer);
-    List<Customer> getAllCustomers() throws CustomerDetailsNotFoundException;
     Customer getCustomerById(int id) throws CustomerDetailsNotFoundException;
     Customer getCustomerByFirstNameAndEmailId(String firstName,String emailId) throws CustomerDetailsNotFoundException;
     Customer getCustomerByEmailId(String emailId) throws CustomerDetailsNotFoundException;
+    List<Customer> getAllCustomers() throws CustomerDetailsNotFoundException;
     List<Customer> getCustomersByFirstName(String firstName) throws CustomerDetailsNotFoundException;
     List<Customer> getCustomersByLastName(String lastName) throws CustomerDetailsNotFoundException;
     List<Customer> getAllCustomersByAge(int age) throws CustomerDetailsNotFoundException;

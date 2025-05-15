@@ -13,7 +13,7 @@ import java.util.Optional;
 public class CustomerServiceImplementation implements CustomerService{
 
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
     @Override
     public Customer acceptCustomer(Customer customer) {
         return customerRepository.save(customer);
