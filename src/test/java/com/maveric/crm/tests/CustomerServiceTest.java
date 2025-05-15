@@ -1,4 +1,4 @@
-package com.maveric.crmtest;
+package com.maveric.crm.tests;
 
 import com.maveric.crm.exceptions.CustomerDetailsNotFoundException;
 import com.maveric.crm.pojos.Customer;
@@ -21,18 +21,18 @@ public class CustomerServiceTest {
 
     @Test
     @Order(1)
-    void testCreateCustomers() {
-        customerService.acceptCustomer(new Customer("Prakash", "S", "prakash@gmail.com", "Male", 23));
-        customerService.acceptCustomer(new Customer("Kishan", "N", "kishan@gmail.com", "Male", 18));
-        customerService.acceptCustomer(new Customer("Prethe", "T", "prethe@gmail.com", "Female", 19));
+    void testAcceptCustomers() {
+        assertNotNull(customerService.acceptCustomer(new Customer("Prakash", "S", "prakash@gmail.com", "Male", 23)));
+        assertNotNull(customerService.acceptCustomer(new Customer("Kishan", "N", "kishan@gmail.com", "Male", 18)));
+        assertNotNull(customerService.acceptCustomer(new Customer("Prethe", "T", "prethe@gmail.com", "Female", 19)));
     }
 
 
     @Test
     @Order(2)
     void testGetCustomerById_Positive() throws CustomerDetailsNotFoundException {
-        Customer customer = customerService.getCustomerById(1);
-        assertEquals("Prakash", customer.getFirstName());
+        Customer expectedCustomer=new Customer(1,"Prakash", "S", "prakash@gmail.com", "Male", 23);
+        assertEquals(expectedCustomer, customerService.getCustomerById(1));
     }
 
 
@@ -45,8 +45,7 @@ public class CustomerServiceTest {
     @Test
     @Order(4)
     void testGetCustomersByFirstName_Positive() throws CustomerDetailsNotFoundException {
-        List<Customer> list = customerService.getCustomersByFirstName("Prakash");
-        assertFalse(list.isEmpty());
+        assertFalse(customerService.getCustomersByFirstName("Prakash").isEmpty());
     }
 
     @Test
@@ -58,8 +57,7 @@ public class CustomerServiceTest {
     @Test
     @Order(6)
     void testGetCustomerByFirstNameAndEmailId_Positive() throws CustomerDetailsNotFoundException {
-        Customer customer = customerService.getCustomerByFirstNameAndEmailId("Prakash", "prakash@gmail.com");
-        assertNotNull(customer);
+        assertNotNull( customerService.getCustomerByFirstNameAndEmailId("Prakash", "prakash@gmail.com"));
     }
 
     @Test
@@ -71,8 +69,7 @@ public class CustomerServiceTest {
     @Test
     @Order(8)
     void testGetAllCustomersByAgeGreaterThanEqual_Positive() throws CustomerDetailsNotFoundException {
-        List<Customer> list = customerService.getAllCustomersByAgeGreaterThanEqual(18);
-        assertFalse(list.isEmpty());
+        assertFalse(customerService.getAllCustomersByAgeGreaterThanEqual(18).isEmpty());
     }
 
     @Test
@@ -84,8 +81,7 @@ public class CustomerServiceTest {
     @Test
     @Order(10)
     void testGetAllCustomersByAgeLesserThan_Positive() throws CustomerDetailsNotFoundException {
-        List<Customer> customers = customerService.getAllCustomersByAgeLesserThan(30);
-        assertFalse(customers.isEmpty());
+        assertFalse(customerService.getAllCustomersByAgeLesserThan(30).isEmpty());
     }
 
     @Test
@@ -110,11 +106,8 @@ public class CustomerServiceTest {
     @Test
     @Order(14)
     void testUpdateCustomerDetails_Positive() throws CustomerDetailsNotFoundException {
-        String response = customerService.updateCustomerDetails( new Customer(3,"Prethe","T","prethet@gmail.com","Female",19));
-        assertEquals("Successfully Updated", response);
-
-        Customer customer = customerService.getCustomerById(3);
-        assertEquals("prethet@gmail.com", customer.getEmailId());
+        assertEquals("Successfully Updated", customerService.updateCustomerDetails( new Customer(3,"Prethe","T","prethet@gmail.com","Female",19)));
+        assertEquals("prethet@gmail.com", customerService.getCustomerById(3).getEmailId());
     }
 
     @Test
@@ -127,7 +120,7 @@ public class CustomerServiceTest {
     @Order(16)
     void testRemoveCustomer_Positive() throws CustomerDetailsNotFoundException {
         assertEquals("Successfully Deleted", customerService.removeCustomer(1));
-        assertThrows(CustomerDetailsNotFoundException.class, () -> customerService.getCustomerById(1));;
+        assertThrows(CustomerDetailsNotFoundException.class, () -> customerService.getCustomerById(1));
     }
 
     @Test
