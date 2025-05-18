@@ -40,7 +40,7 @@ public class CustomerController {
     @GetMapping("/v1/customer/firstName/{firstName}/emailId/{emailId}")
     public ResponseEntity<Customer> getCustomersByFirstNameAndEmailId(@PathVariable @NotBlank(message = "First name is not entered")
                                                                           @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters")
-                                                                          @Pattern(regexp = "^[A-Za-z]+$", message = "First name must contain only letters") String firstName, @PathVariable @jakarta.validation.constraints.Email(message = "Invalid email format") String emailId) throws CustomerDetailsNotFoundException
+                                                                          @Pattern(regexp = "^[A-Za-z]+$", message = "First name must contain only letters") String firstName, @PathVariable @Email(message = "Invalid email format") String emailId) throws CustomerDetailsNotFoundException
     {
         return new ResponseEntity<>(customerService.getCustomerByFirstNameAndEmailId(firstName, emailId),HttpStatus.OK);
     }
@@ -112,7 +112,7 @@ public class CustomerController {
     @GetMapping("v1/customer/gender/{gender}")
     public ResponseEntity<List<Customer>> getCustomersByGender(@PathVariable @NotBlank(message = "Gender is not entered")
                                                                    @NotBlank(message = "Gender is required")
-                                                                   @Pattern(regexp = "Male|Female|Other|male|female|other", message = "Gender must be Male, Female, or Other")String gender) throws CustomerDetailsNotFoundException
+                                                                   @Pattern(regexp = "Male|Female|male|female", message = "Gender must be Male or Female")String gender) throws CustomerDetailsNotFoundException
     {
         return new ResponseEntity<>(customerService.getAllCustomersByGender(gender),HttpStatus.OK);
     }

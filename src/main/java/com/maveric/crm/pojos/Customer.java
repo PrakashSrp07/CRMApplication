@@ -23,7 +23,7 @@ public class Customer {
     @Email(message = "Invalid email format")
     private String emailId;
     @NotBlank(message = "Gender is required")
-    @Pattern(regexp = "Male|Female|Other", message = "Gender must be Male, Female, or Other")
+    @Pattern(regexp = "Male|Female|male|female", message = "Gender must be Male or Female")
     private String gender;
     @Min(value = 18, message = "Age must be at least 18")
     @Max(value = 100, message = "Age must not exceed 100")
